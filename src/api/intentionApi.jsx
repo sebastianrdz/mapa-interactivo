@@ -1,29 +1,18 @@
 import axios from "axios";
 
 export const dispatchIntention = (inputText) => {
-	const data = JSON.stringify({
-		name: "Clasificador de intenciones",
-		input: {
-			sentence: inputText,
-			knowledge_base: {
-				saludo: ["hola", "que tal", "saludos", "hacer consulta"],
-				radio: ["radio", "rango", "area", "ardededor"],
-				cantidad: ["cantidad", "numero", "numeros", "primeros"],
-				lugar: [
-					"lugar",
-					"en",
-					"cerca de",
-					"de",
-					"municipio",
-					"ciudad",
-					"localizado",
-				],
-				despido: ["adios", "hasta lugo", "bye"],
+	var data = JSON.stringify({
+		"name": "Clasificador de intenciones",
+		"input": {
+			"sentence": "Cual es su horario",
+			"knowledge_base": {
+				"saludo": ["hola"],
+				"horario": ["a que hora abren"],
 			},
 		},
 	});
 
-	const config = {
+	var config = {
 		method: "post",
 		url: "https://cors-anywhere.herokuapp.com/https://invoke.neuraan.com/default/v1",
 		headers: {

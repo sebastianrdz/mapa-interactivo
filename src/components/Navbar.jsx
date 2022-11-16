@@ -1,41 +1,40 @@
-import styled from '@emotion/styled'
-import HeaderImg from '../img/Header.png';
+import styled from "@emotion/styled";
 
 function Navbar() {
-  return (
-    <NavContainer>
-      {/* <NavHeader></NavHeader>
-      <NavLinks>
-        <a>Temas</a>
-        <a>Programas de informacion</a>
-        <a>Sistemas de Consulta</a>
-        <a>Infrastructura</a>
-        <a>Investigacion</a>
-        <a>Sala de Prensa</a>
-        <a>Chat bot</a>
-      </NavLinks> */}
-      <NavImg src={HeaderImg}/>
-    </NavContainer>
-  )
+	return (
+		<>
+			<NavHeader>
+				<NavHeaderLimit>Logo</NavHeaderLimit>
+			</NavHeader>
+			<NavLinks>
+				<NavLinksLimit>Links</NavLinksLimit>
+			</NavLinks>
+		</>
+	);
 }
 
-export default Navbar
-
-
-const NavContainer = styled.div`
-  /* background-color: #575756;
-  color: #fff;
-  padding: 0 200px; */
-`;
-
-const NavImg = styled.img`
-  max-width: 100%;
-`;
+export default Navbar;
 
 const NavHeader = styled.div`
-  
+	background-color: #fff;
+`;
+const NavHeaderLimit = styled.div`
+	height: 80px;
+	display: flex;
+	margin: auto;
+	max-width: 1200px;
+	padding: 10px;
+	font-size: 11px;
 `;
 
 const NavLinks = styled.div`
-  
+	background-color: #9b9b9b;
+`;
+const NavLinksLimit = styled.div`
+	height: 30px;
+	display: flex;
+	margin: auto;
+	max-width: 1200px;
+	padding: 10px;
+	font-size: 11px;
 `;
