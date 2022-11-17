@@ -20,7 +20,7 @@ function Body() {
 export default Body;
 
 const BodyWrapper = styled.div`
-	background-color: #f0f0f0;
+	background-color: #EDEDED;
 	padding: 20px;
 `;
 

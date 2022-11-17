@@ -28,7 +28,7 @@ const NavHeaderLimit = styled.div`
 `;
 
 const NavLinks = styled.div`
-	background-color: #9b9b9b;
+	background-color: #575756;
 `;
 const NavLinksLimit = styled.div`
 	height: 30px;

@@ -1,17 +1,70 @@
 import { useState } from "react";
 import { dispatchIntention } from "../api/intentionApi";
 import styled from "@emotion/styled";
+import { Bubble } from "../components";
+import { SendIcon } from "../img";
 
 function ChatBot() {
 	const [inputText, setInputText] = useState("");
+	const [history, setHistory] = useState([
+		{
+			message: "Hola, soy Neuran tu asistente vitual!",
+			client: "bot",
+		},
+		{
+			message: "En que te puedo ayudar?",
+			client: "bot",
+		},
+		{
+			message: "Quiero buscar un negocio",
+			client: "user",
+		},
+		{
+			message: "Claro que si, que establecimiento?",
+			client: "bot",
+		},
+		{
+			message: "Quiero buscar un negocio",
+			client: "user",
+		},
+		{
+			message: "Claro que si, que establecimiento?",
+			client: "bot",
+		},
+		{
+			message: "Quiero buscar un negocio",
+			client: "user",
+		},
+		{
+			message: "Claro que si, que establecimiento?",
+			client: "bot",
+		},
+		{
+			message: "Quiero buscar un negocio",
+			client: "user",
+		},
+		{
+			message: "Claro que si, que establecimiento?",
+			client: "bot",
+		},
+	]);
 	// const [response, setResponse] = useState({});
 
 	return (
 		<ChatBotWrapper>
 			<ChatHeader> Busqueda </ChatHeader>
-			<ChatHistory></ChatHistory>
+			<ChatHistory>
+				{history.map((content) => {
+					return <Bubble client={content.client}>{content.message}</Bubble>;
+				})}
+			</ChatHistory>
 			<ChatInputWrapper>
-				<ChatInputBox placeholder="text..." onChange={(e) => {setInputText(e.target.value)}}/>
+				<ChatInputBox
+					placeholder="text..."
+					onChange={(e) => {
+						setInputText(e.target.value);
+					}}
+				/>
 				<ChatButton onClick={dispatchIntention(inputText)}>
 					<SendIcon />
 				</ChatButton>
@@ -28,20 +81,23 @@ const ChatBotWrapper = styled.div`
 	width: 100%;
 	margin-left: 10px;
 	max-width: 400px;
-	/* border: 1px solid red; */
+	max-height: 400px; // ?
 `;
 
 const ChatHeader = styled.div`
 	height: 40px;
-	/* border: 1px solid green; */
 	font-size: 26px;
 	font-weight: 700;
-`
+	margin-bottom: 20px;
+`;
 
 const ChatHistory = styled.div`
 	height: 100%;
-	border: 1px dashed black;
-`
+	display: flex;
+	flex-direction: column;
+	overflow: scroll;
+	padding-bottom: 10px;
+`;
 
 const ChatInputWrapper = styled.div`
 	display: flex;
@@ -50,32 +106,29 @@ const ChatInputWrapper = styled.div`
 
 const ChatInputBox = styled.input`
 	border-radius: 20px;
-	border: 1px solid #2f97ff;
+	border: 1px solid #38a1f2;
 	margin: 1px;
 	padding: 6px 12px;
 	outline: none;
 	width: 100%;
-	:hover, :focus {
-		border: 2px solid #2f97ff;
+	:hover,
+	:focus {
+		border: 2px solid #38a1f2;
 		margin: 0px;
 	}
 `;
 
 const ChatButton = styled.button`
+	display: flex;
+	align-items: center;
 	border-radius: 999px;
 	border: none;
-	background-color: #2f97ff;
+	background-color: #38a1f2;
 	color: #fff;
 	padding: 8px;
 	margin-left: 8px;
 	cursor: pointer;
 	:hover {
-		background-color: #2784e0;
+		background-color: #2098f3;
 	}
-`;
-
-const SendIcon = styled.div`
-	border: 1px solid black;
-	width: 20px;
-	height: 20px;
 `;

@@ -1,0 +1,1 @@
+export { ReactComponent as SendIcon } from './Icons/Paper_Plane.svg';

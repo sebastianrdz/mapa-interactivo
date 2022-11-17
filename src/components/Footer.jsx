@@ -15,7 +15,7 @@ function Footer() {
 export default Footer;
 
 const FooterWrapper = styled.div`
-	background-color: #2045e8;
+	background-color: #3273C3;
 `;
 const FooterContainer = styled.div`
 	height: 300px;
@@ -27,5 +27,5 @@ const FooterContainer = styled.div`
 `;
 const CopyRight = styled.div`
 	height: 33px;
-	background-color: #7c7c7c;
+	background-color: #575756;
 `;
