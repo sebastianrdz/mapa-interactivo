@@ -21,7 +21,7 @@ export default Body;
 
 const BodyWrapper = styled.div`
 	background-color: #EDEDED;
-	padding: 20px;
+	padding: 5px 20px 20px;
 `;
 
 const BackLinkRoute = styled.p`

@@ -97,11 +97,17 @@ const ChatHistory = styled.div`
 	flex-direction: column;
 	overflow: scroll;
 	padding-bottom: 10px;
+	background-color: #EDEDED;
+	padding: 6px;
+	border-radius: 20px 20px 0 0;
 `;
 
 const ChatInputWrapper = styled.div`
 	display: flex;
 	margin-top: auto;
+	background-color: #EDEDED;
+	padding: 6px;
+	border-radius: 0 0 20px 20px;
 `;
 
 const ChatInputBox = styled.input`
