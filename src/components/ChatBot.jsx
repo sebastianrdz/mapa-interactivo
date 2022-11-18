@@ -1,54 +1,70 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { dispatchIntention } from "../api/intentionApi";
 import styled from "@emotion/styled";
 import { Bubble } from "../components";
 import { SendIcon } from "../img";
 
 function ChatBot() {
+	const inputRef = useRef();
+
 	const [inputText, setInputText] = useState("");
+	const [response, setResponse] = useState({});
 	const [history, setHistory] = useState([
-		{
-			message: "Hola, soy Neuran tu asistente vitual!",
-			client: "bot",
-		},
 		{
 			message: "En que te puedo ayudar?",
 			client: "bot",
 		},
 		{
-			message: "Quiero buscar un negocio",
-			client: "user",
-		},
-		{
-			message: "Claro que si, que establecimiento?",
-			client: "bot",
-		},
-		{
-			message: "Quiero buscar un negocio",
-			client: "user",
-		},
-		{
-			message: "Claro que si, que establecimiento?",
-			client: "bot",
-		},
-		{
-			message: "Quiero buscar un negocio",
-			client: "user",
-		},
-		{
-			message: "Claro que si, que establecimiento?",
-			client: "bot",
-		},
-		{
-			message: "Quiero buscar un negocio",
-			client: "user",
-		},
-		{
-			message: "Claro que si, que establecimiento?",
+			message: "Hola, soy Neuran tu asistente vitual!",
 			client: "bot",
 		},
 	]);
-	// const [response, setResponse] = useState({});
+
+	const _handleKeyDown = (e) => {
+		if(e.key === 'Enter'){
+			submitUserResponse();
+		}
+	}
+
+	const submitUserResponse = () => {
+		const tempData = {
+			message: inputText,
+			client: "user",
+		};
+		setHistory([tempData, ...history]);
+		inputRef.current.value = "";
+		setResponse(dispatchIntention(inputText));
+	};
+
+	const submitBotResponse = (text) => {
+		const tempData = {
+			message: text,
+			client: "bot",
+		};
+		setHistory([tempData, ...history]);
+	};
+
+	useEffect(() => {
+		switch (response.type) {
+			case "ERROR": // ERROR
+				submitBotResponse("Lo lamento, no te entendi.");
+				break;
+			case "SALUDO":
+				submitBotResponse("Hola!");
+				break;
+			case "RADIO": // Busquda por radio
+				submitBotResponse("Realizando busqueda por radio...");
+				break;
+			case "CANTIDAD": // Busqueda por cantidad
+				submitBotResponse("Realizando busqueda por cantidad...");
+				break;
+			case "LUGAR": // Busqueda por lugar
+				submitBotResponse("Realizando busqueda por lugar...");
+				break;
+			default: // Error
+				console.warn("Default error");
+		}
+	}, [response]);
 
 	return (
 		<ChatBotWrapper>
@@ -60,12 +76,14 @@ function ChatBot() {
 			</ChatHistory>
 			<ChatInputWrapper>
 				<ChatInputBox
+					ref={inputRef}
 					placeholder="text..."
 					onChange={(e) => {
 						setInputText(e.target.value);
 					}}
+					onKeyDown={_handleKeyDown}
 				/>
-				<ChatButton onClick={dispatchIntention(inputText)}>
+				<ChatButton onClick={submitUserResponse}>
 					<SendIcon />
 				</ChatButton>
 			</ChatInputWrapper>
@@ -81,7 +99,7 @@ const ChatBotWrapper = styled.div`
 	width: 100%;
 	margin-left: 10px;
 	max-width: 400px;
-	max-height: 400px; // ?
+	max-height: 400px;
 `;
 
 const ChatHeader = styled.div`
@@ -94,10 +112,10 @@ const ChatHeader = styled.div`
 const ChatHistory = styled.div`
 	height: 100%;
 	display: flex;
-	flex-direction: column;
+	flex-direction: column-reverse;
 	overflow: scroll;
 	padding-bottom: 10px;
-	background-color: #EDEDED;
+	background-color: #ededed;
 	padding: 6px;
 	border-radius: 20px 20px 0 0;
 `;
@@ -105,7 +123,7 @@ const ChatHistory = styled.div`
 const ChatInputWrapper = styled.div`
 	display: flex;
 	margin-top: auto;
-	background-color: #EDEDED;
+	background-color: #ededed;
 	padding: 6px;
 	border-radius: 0 0 20px 20px;
 `;
