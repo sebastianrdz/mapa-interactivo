@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Bubble } from "../components";
 import { SendIcon } from "../img";
 
-function ChatBot() {
+const ChatBot = (userPosition) => {
 	const inputRef = useRef();
 
 	const [inputText, setInputText] = useState("");
