@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Bubble } from "../components";
 import { SendIcon } from "../img";
 
-const ChatBot = (userPosition) => {
+const ChatBot = ({userPosition}) => {
 	const inputRef = useRef();
 
 	const [inputText, setInputText] = useState("");
@@ -33,7 +33,7 @@ const ChatBot = (userPosition) => {
 		};
 		setHistory([tempData, ...history]);
 		inputRef.current.value = "";
-		setResponse(dispatchIntention(inputText));
+		setResponse(dispatchIntention(inputText, userPosition.latitude, userPosition.longitude));
 	};
 
 	const submitBotResponse = (text) => {
