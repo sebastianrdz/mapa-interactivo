@@ -6,16 +6,14 @@ function App() {
 	const [userPosition, setUserPosition] = useState(null);
 
 	useEffect(() => {
-		async function callPosition() {
-			await userCurrentLocation(setUserPosition);
-		}
-		callPosition();
+		userCurrentLocation(setUserPosition);
 	}, []);
 
+	if (userPosition == null) return <div>Loading...</div>;
 	return (
 		<div>
 			<Navbar />
-			<Body userPosition={userPosition}/>
+			<Body userPosition={userPosition} />
 			<Footer />
 		</div>
 	);

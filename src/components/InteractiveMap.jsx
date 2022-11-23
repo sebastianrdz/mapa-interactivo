@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 import '../App.css'
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { useState } from 'react';
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -12,8 +13,9 @@ L.Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
-function InteractiveMap() {
-  const position = [51.505, -0.09]
+function InteractiveMap({userPosition}) {
+  const [position] = useState([userPosition.latitude, userPosition.longitude]);
+  
   return (
     <MapWrapper>
       <MapContainer
@@ -26,7 +28,7 @@ function InteractiveMap() {
         />
         <Marker position={position}>
           <Popup>
-            Hello!
+            Estas aqui!
           </Popup>
         </Marker>
       </MapContainer>

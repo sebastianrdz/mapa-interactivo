@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { ChatBot, InteractiveMap } from "../components";
 
-const Body = (userPosition) => {
+const Body = ({userPosition}) => {
 	return (
 		<BodyWrapper>
 			<BackLinkRoute>
@@ -9,7 +9,7 @@ const Body = (userPosition) => {
 			</BackLinkRoute>
 			<BodyContent>
 				<FlexRow>
-					<InteractiveMap />
+					<InteractiveMap userPosition={userPosition} />
 					<ChatBot userPosition={userPosition} />
 				</FlexRow>
 			</BodyContent>

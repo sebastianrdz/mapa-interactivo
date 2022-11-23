@@ -1,15 +1,12 @@
-export const userCurrentLocation = (setUserPosition) => {
-	if ("geolocation" in navigator) {
-		console.log("Available");
-	} else {
-		console.log("Not Available");
-		return;
-	}
-
-	navigator.geolocation.getCurrentPosition(function (position) {
-		setUserPosition({
-			latitude: position.coords.latitude,
-			longitude: position.coords.longitude,
+export const userCurrentLocation = async (setUserPosition) => {
+	try {
+		await navigator.geolocation.getCurrentPosition(function (position) {
+			setUserPosition({
+				latitude: position.coords.latitude,
+				longitude: position.coords.longitude,
+			});
 		});
-	});
+	} catch (e) {
+		console.log(e);
+	}
 };
