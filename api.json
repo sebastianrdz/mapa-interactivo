@@ -1,0 +1,14 @@
+{
+  "intent": {
+      "type": "LUGAR",
+      "info": {
+          "zona": "santa catarina"
+      }
+  },
+     "data": [
+        {"latitud": 120.0239480283, "longitud": 94.435899437},
+        {"latitud": 120.0239480283, "longitud": 94.435899437},
+        {"latitud": 120.0239480283, "longitud": 94.435899437},
+        {"latitud": 120.0239480283, "longitud": 94.435899437}
+     ]
+}
