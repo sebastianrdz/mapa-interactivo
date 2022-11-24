@@ -4,6 +4,7 @@ import '../App.css'
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useState } from 'react';
+import elmerApi from '../../api.json'
 
 delete L.Icon.Default.prototype._getIconUrl;
 
