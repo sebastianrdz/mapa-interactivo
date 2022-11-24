@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
+import { useState } from "react";
 import { ChatBot, InteractiveMap } from "../components";
 
 const Body = ({userPosition}) => {
+	const [coordinates, setCoordinates] = useState({});
+
 	return (
 		<BodyWrapper>
 			<BackLinkRoute>
@@ -9,8 +12,8 @@ const Body = ({userPosition}) => {
 			</BackLinkRoute>
 			<BodyContent>
 				<FlexRow>
-					<InteractiveMap userPosition={userPosition} />
-					<ChatBot userPosition={userPosition} />
+					<InteractiveMap userPosition={userPosition} coordinates={coordinates} />
+					<ChatBot userPosition={userPosition} setCoordinates={setCoordinates} />
 				</FlexRow>
 			</BodyContent>
 		</BodyWrapper>

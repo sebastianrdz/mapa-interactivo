@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { dispatchIntention } from "../api/intentionApi";
+import { getUserMarkers } from "../api/userMarkers";
 import styled from "@emotion/styled";
 import { Bubble } from "../components";
 import { SendIcon } from "../img";
 
-const ChatBot = ({userPosition}) => {
+const ChatBot = ({userPosition, setCoordinates}) => {
 	const inputRef = useRef();
 
 	const [inputText, setInputText] = useState("");
@@ -33,7 +34,7 @@ const ChatBot = ({userPosition}) => {
 		};
 		setHistory([tempData, ...history]);
 		inputRef.current.value = "";
-		setResponse(dispatchIntention(inputText, userPosition.latitude, userPosition.longitude));
+		setResponse(getUserMarkers(inputText, userPosition.latitude, userPosition.longitude));
 	};
 
 	const submitBotResponse = (text) => {
@@ -45,7 +46,7 @@ const ChatBot = ({userPosition}) => {
 	};
 
 	useEffect(() => {
-		switch (response.type) {
+		switch (response?.intent?.type) {
 			case "ERROR": // ERROR
 				submitBotResponse("Lo lamento, no te entendi.");
 				break;
@@ -60,6 +61,7 @@ const ChatBot = ({userPosition}) => {
 				break;
 			case "LUGAR": // Busqueda por lugar
 				submitBotResponse("Realizando busqueda por lugar...");
+				setCoordinates(response)
 				break;
 			default: // Error
 				console.warn("Default error");

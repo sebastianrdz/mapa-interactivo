@@ -1,8 +1,10 @@
 {
   "intent": {
-    "type": "LUGAR",
+    "type": "RADIO",
     "info": {
-      "zona": "santa catarina"
+      "lat" : 1,
+      "lon" : 2,
+      "radio" : 5
     }
   },
   "data": [

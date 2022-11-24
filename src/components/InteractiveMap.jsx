@@ -4,7 +4,6 @@ import '../App.css'
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useState } from 'react';
-import elmerApi from '../../api.json'
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -14,8 +13,11 @@ L.Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
-function InteractiveMap({userPosition}) {
+
+
+function InteractiveMap({userPosition, coordinates}) {
   const [position] = useState([userPosition.latitude, userPosition.longitude]);
+  console.log(coordinates)
   
   return (
     <MapWrapper>
@@ -32,6 +34,26 @@ function InteractiveMap({userPosition}) {
             Estas aqui!
           </Popup>
         </Marker>
+
+        {
+          coordinates?.data && 
+          coordinates?.data?.map((estab) => {  
+            var lat = estab["est"]["latitud"]
+            var long = estab["est"]["longitud"]
+            var nom_estab = estab["est"]["nom_estab"]
+            var edificio = estab["est"]["edificio"]
+            return (
+              <Marker position={[lat, long]}>
+                  <Popup>
+                    <ul>
+                      <li>{nom_estab}</li>
+                      <li>{edificio}</li>
+                    </ul>
+                  </Popup>
+              </Marker>
+            )
+          })
+      }
       </MapContainer>
     </MapWrapper>
   )
