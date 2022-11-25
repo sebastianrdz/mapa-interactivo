@@ -1,9 +1,17 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
 import { ChatBot, InteractiveMap } from "../components";
+import { userCurrentLocation } from "../api/helperFunctions";
+import { useState, useEffect } from "react";
 
-const Body = ({userPosition}) => {
+const Body = () => {
 	const [coordinates, setCoordinates] = useState({});
+	const [userPosition, setUserPosition] = useState(null);
+
+	useEffect(() => {
+		userCurrentLocation(setUserPosition);
+	}, []);
+
+	if (userPosition == null) return <BodyWrapper>Loading...</BodyWrapper>;
 
 	return (
 		<BodyWrapper>
@@ -25,6 +33,7 @@ export default Body;
 const BodyWrapper = styled.div`
 	background-color: #EDEDED;
 	padding: 5px 20px 20px;
+	min-height: 454px;
 `;
 
 const BackLinkRoute = styled.p`
