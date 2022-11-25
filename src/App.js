@@ -1,5 +1,5 @@
 import { Navbar, Body, Footer } from "./components";
-import { userCurrentLocation } from "./api/userCurrentLocation";
+import { userCurrentLocation } from "./api/helperFunctions";
 import { useState, useEffect } from "react";
 
 function App() {

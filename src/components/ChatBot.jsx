@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { dispatchIntention } from "../api/intentionApi";
-import { getUserMarkers } from "../api/userMarkers";
+import { getUserMarkers } from "../api/helperFunctions";
 import styled from "@emotion/styled";
 import { Bubble } from "../components";
 import { SendIcon } from "../img";
