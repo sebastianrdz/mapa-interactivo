@@ -4,7 +4,7 @@ import { userCurrentLocation } from "../api/helperFunctions";
 import { useState, useEffect } from "react";
 
 const Body = () => {
-	const [coordinates, setCoordinates] = useState({});
+	const [info, setInfo] = useState({});
 	const [userPosition, setUserPosition] = useState(null);
 
 	useEffect(() => {
@@ -20,8 +20,8 @@ const Body = () => {
 			</BackLinkRoute>
 			<BodyContent>
 				<FlexRow>
-					<InteractiveMap userPosition={userPosition} coordinates={coordinates} />
-					<ChatBot userPosition={userPosition} setCoordinates={setCoordinates} />
+					<InteractiveMap userPosition={userPosition} info={info}/>
+					<ChatBot userPosition={userPosition} setInfo={setInfo}/>
 				</FlexRow>
 			</BodyContent>
 		</BodyWrapper>

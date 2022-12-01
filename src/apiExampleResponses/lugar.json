@@ -7,7 +7,6 @@
   },
   "data": [
     {
-      "est" : {
         "id": 3041782,
         "clee": "19026461110030302000000000U7",
         "nom_estab": "ABARROTERA MARTINEZ LEAL",
@@ -50,10 +49,8 @@
         "latitud": 25.66677462,
         "longitud": -100.2650016,
         "fecha_alta": "2010-07"
-      }
-    },
-    {
-      "est" : {
+      },
+{
         "id": 3041782,
         "clee": "19026461110030302000000000U7",
         "nom_estab": "Acapella",
@@ -97,6 +94,5 @@
         "longitud": -100.2652015,
         "fecha_alta": "2010-07"
       }
-    }
   ]
 }

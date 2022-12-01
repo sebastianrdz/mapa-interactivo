@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Popup, Marker, Circle } from "react-leaflet";
 import "../App.css";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -13,9 +13,8 @@ L.Icon.Default.mergeOptions({
 	shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
 
-function InteractiveMap({ userPosition, coordinates }) {
+function InteractiveMap({ userPosition, info }) {
 	const [position] = useState([userPosition.latitude, userPosition.longitude]);
-	console.log(coordinates);
 
 	return (
 		<MapWrapper>
@@ -24,18 +23,24 @@ function InteractiveMap({ userPosition, coordinates }) {
 					attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 				/>
-				{position && (
+				{/* {position && (
 					<Marker position={position}>
 						<Popup>Estas aqui!</Popup>
 					</Marker>
+				)} */}
+				{info?.intent && info?.intent?.type === "RADIO" && (
+					<Circle
+						center={position}
+						fillColor={"blue"}
+						radius={info.intent.info.radio * 1000}
+					/>
 				)}
-
-				{coordinates?.data &&
-					coordinates?.data?.map((estab) => {
-						var lat = estab["est"]["latitud"];
-						var long = estab["est"]["longitud"];
-						var nom_estab = estab["est"]["nom_estab"];
-						var edificio = estab["est"]["edificio"];
+				{info?.data &&
+					info?.data?.map((data) => {
+						var lat = data["latitud"];
+						var long = data["longitud"];
+						var nom_estab = data["nom_estab"];
+						var edificio = data["edificio"];
 						return (
 							<Marker position={[lat, long]}>
 								<Popup>
