@@ -2,19 +2,26 @@ import axios from "axios";
 import placeApi from "../apiExampleResponses/lugar.json"
 import radiusApi from "../apiExampleResponses/radio.json"
 
-const BASE_URL = "";
+const BASE_URL = "http://localhost:8000/chat-inegi";
 
-export const dispatch = (inputText, lat, lon) => {
+export const dispatch = async (inputText, lat, lon) => {
+
+	const data = {
+		search: inputText,
+		variables: [lat, lon]
+	}
+
+	const config = {
+		headers:{
+			'Content-Type': 'application/json'
+		}
+	}
+
 	try {
-		const res = axios.get(BASE_URL, {
-			text: inputText,
-			variables: {
-				latitude: lat,
-				longitude: lon,
-			}
-		});
-		// return placeApi;
-		return radiusApi;
+		console.log(data)
+		const res = await axios.post(BASE_URL, data, config);
+		console.log(res)
+		return res;
 	} catch (err) {
 		console.error(err);
 		return { type: "ERROR", message: "Conection error", variables: {}, data: [] };
