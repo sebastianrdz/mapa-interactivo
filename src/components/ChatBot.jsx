@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { getUserMarkers } from "../api/helperFunctions";
+import { getRadius } from "../api/helperFunctions";
 import styled from "@emotion/styled";
 import { Bubble } from "../components";
 import { SendIcon } from "../img";
 
-const ChatBot = ({userPosition, setCoordinates}) => {
+const ChatBot = ({userPosition, setCoordinates, setRadius}) => {
 	const inputRef = useRef();
 
 	const [inputText, setInputText] = useState("");
@@ -33,7 +34,8 @@ const ChatBot = ({userPosition, setCoordinates}) => {
 		};
 		setHistory([tempData, ...history]);
 		inputRef.current.value = "";
-		setResponse(getUserMarkers(inputText, userPosition.latitude, userPosition.longitude));
+		//setResponse(getUserMarkers(inputText, userPosition.latitude, userPosition.longitude));
+		setResponse(getRadius(inputText, userPosition.latitude, userPosition.longitude));
 	};
 
 	const submitBotResponse = (text) => {
@@ -54,6 +56,8 @@ const ChatBot = ({userPosition, setCoordinates}) => {
 				break;
 			case "RADIO": // Busquda por radio
 				submitBotResponse("Realizando busqueda por radio...");
+				setRadius(response)
+				setCoordinates(response)
 				break;
 			case "CANTIDAD": // Busqueda por cantidad
 				submitBotResponse("Realizando busqueda por cantidad...");

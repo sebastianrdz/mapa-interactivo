@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Popup, Marker, Circle } from "react-leaflet";
 import "../App.css";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -13,10 +13,10 @@ L.Icon.Default.mergeOptions({
 	shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
 
-function InteractiveMap({ userPosition, coordinates }) {
+function InteractiveMap({ userPosition, coordinates, radius }) {
 	const [position] = useState([userPosition.latitude, userPosition.longitude]);
-	console.log(coordinates);
 
+	console.log(radius)
 	return (
 		<MapWrapper>
 			<MapContainer center={position} zoom={13}>
@@ -29,6 +29,18 @@ function InteractiveMap({ userPosition, coordinates }) {
 						<Popup>Estas aqui!</Popup>
 					</Marker>
 				)}
+
+				{radius?.intent && radius?.intent?.info?.map((rad) => {
+					var pos = [rad["intent"]["info"]["lat"], rad["intent"]["info"]["lon"]]
+					var radio = [rad["intent"]["info"]["lat"], rad["intent"]["info"]["radio"]]
+					return (
+						<Circle 
+						center={pos} 
+						radius={200} 
+						pane="my-existing-pane" />
+					);
+				})}
+					
 
 				{coordinates?.data &&
 					coordinates?.data?.map((estab) => {
