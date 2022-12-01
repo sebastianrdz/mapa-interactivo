@@ -1,0 +1,8 @@
+{
+  "labels":[
+    "RADIO",
+    "CANTIDAD",
+    "LUGAR"
+  ],
+  "threshold":0.5
+}

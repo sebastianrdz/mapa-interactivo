@@ -1,0 +1,15 @@
+# The current enviroment has installed:
+- fastapi
+- uvicorn
+- pandas
+- numpy
+- json
+- pydantic
+- typing
+- unicodedata
+- re
+- spa2num
+- spacy
+
+# Run the api
+- uvicorn app:app --reload

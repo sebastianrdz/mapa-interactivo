@@ -1,0 +1,44 @@
+{
+  "lang":"es",
+  "name":"pipeline",
+  "version":"0.0.0",
+  "spacy_version":">=3.4.3,<3.5.0",
+  "description":"",
+  "author":"",
+  "email":"",
+  "url":"",
+  "license":"",
+  "spacy_git_version":"63673a792",
+  "vectors":{
+    "width":0,
+    "vectors":0,
+    "keys":0,
+    "name":null,
+    "mode":"default"
+  },
+  "labels":{
+    "entity_ruler":[
+      "ACT",
+      "DIS",
+      "EST",
+      "LOC",
+      "MUN"
+    ],
+    "textcat_multilabel":[
+      "RADIO",
+      "CANTIDAD",
+      "LUGAR"
+    ]
+  },
+  "pipeline":[
+    "entity_ruler",
+    "textcat_multilabel"
+  ],
+  "components":[
+    "entity_ruler",
+    "textcat_multilabel"
+  ],
+  "disabled":[
+
+  ]
+}
