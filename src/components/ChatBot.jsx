@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { getUserMarkers } from "../api/helperFunctions";
-import { getRadius } from "../api/helperFunctions";
+import { dispatch } from "../api/helperFunctions";
 import styled from "@emotion/styled";
 import { Bubble } from "../components";
 import { SendIcon } from "../img";
 
-const ChatBot = ({userPosition, setCoordinates, setRadius}) => {
+const ChatBot = ({userPosition, setInfo}) => {
 	const inputRef = useRef();
 
 	const [inputText, setInputText] = useState("");
@@ -34,8 +33,8 @@ const ChatBot = ({userPosition, setCoordinates, setRadius}) => {
 		};
 		setHistory([tempData, ...history]);
 		inputRef.current.value = "";
-		//setResponse(getUserMarkers(inputText, userPosition.latitude, userPosition.longitude));
-		setResponse(getRadius(inputText, userPosition.latitude, userPosition.longitude));
+		//setResponse(dispatch(inputText, userPosition.latitude, userPosition.longitude));
+		setResponse(dispatch(inputText, userPosition.latitude, userPosition.longitude));
 	};
 
 	const submitBotResponse = (text) => {
@@ -56,15 +55,14 @@ const ChatBot = ({userPosition, setCoordinates, setRadius}) => {
 				break;
 			case "RADIO": // Busquda por radio
 				submitBotResponse("Realizando busqueda por radio...");
-				setRadius(response)
-				setCoordinates(response)
+				setInfo(response);
 				break;
 			case "CANTIDAD": // Busqueda por cantidad
 				submitBotResponse("Realizando busqueda por cantidad...");
 				break;
 			case "LUGAR": // Busqueda por lugar
 				submitBotResponse("Realizando busqueda por lugar...");
-				setCoordinates(response)
+				setInfo(response);
 				break;
 			default: // Error
 				console.warn("Default error");

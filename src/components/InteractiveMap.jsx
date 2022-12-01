@@ -13,10 +13,9 @@ L.Icon.Default.mergeOptions({
 	shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
 
-function InteractiveMap({ userPosition, coordinates, radius }) {
+function InteractiveMap({ userPosition, info }) {
 	const [position] = useState([userPosition.latitude, userPosition.longitude]);
 
-	console.log(radius)
 	return (
 		<MapWrapper>
 			<MapContainer center={position} zoom={13}>
@@ -24,30 +23,24 @@ function InteractiveMap({ userPosition, coordinates, radius }) {
 					attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 				/>
-				{position && (
+				{/* {position && (
 					<Marker position={position}>
 						<Popup>Estas aqui!</Popup>
 					</Marker>
+				)} */}
+				{info?.intent && info?.intent?.type === "RADIO" && (
+					<Circle
+						center={position}
+						fillColor={"blue"}
+						radius={info.intent.info.radio * 1000}
+					/>
 				)}
-
-				{radius?.intent && radius?.intent?.info?.map((rad) => {
-					var pos = [parseInt(rad["intent"]["info"]["lat"]), parseInt(rad["intent"]["info"]["lon"])]
-					var radio = parseInt([rad["intent"]["info"]["lat"], rad["intent"]["info"]["radio"]])
-					return (
-						<Circle 
-						center={pos} 
-						radius={200} 
-						pane="my-existing-pane" />
-					);
-				})}
-					
-
-				{coordinates?.data &&
-					coordinates?.data?.map((estab) => {
-						var lat = estab["est"]["latitud"];
-						var long = estab["est"]["longitud"];
-						var nom_estab = estab["est"]["nom_estab"];
-						var edificio = estab["est"]["edificio"];
+				{info?.data &&
+					info?.data?.map((data) => {
+						var lat = data["latitud"];
+						var long = data["longitud"];
+						var nom_estab = data["nom_estab"];
+						var edificio = data["edificio"];
 						return (
 							<Marker position={[lat, long]}>
 								<Popup>

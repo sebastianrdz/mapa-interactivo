@@ -4,7 +4,7 @@ import radiusApi from "../apiExampleResponses/radio.json"
 
 const BASE_URL = "";
 
-export const getUserMarkers = (inputText, lat, lon) => {
+export const dispatch = (inputText, lat, lon) => {
 	try {
 		const res = axios.get(BASE_URL, {
 			text: inputText,
@@ -13,22 +13,7 @@ export const getUserMarkers = (inputText, lat, lon) => {
 				longitude: lon,
 			}
 		});
-		return placeApi;
-	} catch (err) {
-		console.error(err);
-		return { type: "ERROR", message: "Conection error", variables: {}, data: [] };
-	}
-};
-
-export const getRadius = (inputText, lat, lon) => {
-	try {
-		const res = axios.get(BASE_URL, {
-			text: inputText,
-			variables: {
-				latitude: lat,
-				longitude: lon,
-			}
-		});
+		// return placeApi;
 		return radiusApi;
 	} catch (err) {
 		console.error(err);
