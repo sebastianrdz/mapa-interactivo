@@ -31,8 +31,8 @@ function InteractiveMap({ userPosition, coordinates, radius }) {
 				)}
 
 				{radius?.intent && radius?.intent?.info?.map((rad) => {
-					var pos = [rad["intent"]["info"]["lat"], rad["intent"]["info"]["lon"]]
-					var radio = [rad["intent"]["info"]["lat"], rad["intent"]["info"]["radio"]]
+					var pos = [parseInt(rad["intent"]["info"]["lat"]), parseInt(rad["intent"]["info"]["lon"])]
+					var radio = parseInt([rad["intent"]["info"]["lat"], rad["intent"]["info"]["radio"]])
 					return (
 						<Circle 
 						center={pos} 
