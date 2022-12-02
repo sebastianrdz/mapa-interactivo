@@ -1,5 +1,5 @@
 from schemas.intent import IntentPlace, IntentQuantity, IntentRadio
-from db.inegiDB import df
+from db.inegiDB import df, df_ori
 import json
 import numpy as np
 
@@ -21,7 +21,10 @@ def get_radio(intentData: IntentRadio):
 
     #data = {"latitud": intentData.latitud, "longitud": intentData.longitud, "radius" : intentData.radius, "find": intentData.find}
     # Filtro de lugares por tipo de comercio
-    all_negs = df[((df['nom_estab'].str.contains(intentData.find, case=False)) | (df['nombre_act'].str.contains(intentData.find, case=False)))]
+    all_negs_index = df.index[((df['nom_estab'].str.contains(intentData.find, case=False)) | (df['nombre_act'].str.contains(intentData.find, case=False)) | (df['raz_social'].str.contains(intentData.find, case=False)))]
+
+    all_negs = df_ori.loc[all_negs_index]
+
     # Filtro de lugares por radio buscado
     all_negs = all_negs[(all_negs.apply(lambda row: haversine(row, intentData.longitude, intentData.latitude), axis=1) <= intentData.radius)]
 
@@ -48,7 +51,9 @@ def get_radio(intentData: IntentRadio):
 def get_quantity(intentData: IntentQuantity):
 
     # Filtro de lugares por tipo de comercio
-    all_negs = df[((df['nom_estab'].str.contains(intentData.find, case=False)) | (df['nombre_act'].str.contains(intentData.find, case=False)))]
+    all_negs_index = df.index[((df['nom_estab'].str.contains(intentData.find, case=False)) | (df['nombre_act'].str.contains(intentData.find, case=False))  | (df['raz_social'].str.contains(intentData.find, case=False)))]
+
+    all_negs = df_ori.loc[all_negs_index]
 
     # Obtencion de distancias de los resultados filtrados
     all_negs['distancia'] = ((intentData.latitude - all_negs['latitud'])**2 + (intentData.longitude - all_negs['longitud'])**2)**.5 
@@ -80,7 +85,9 @@ def get_quantity(intentData: IntentQuantity):
 def get_by_place(intentData: IntentPlace):
 
     # Filtro de lugares por tipo de comercio y lugar indicado por el usuario
-    all_negs = df[((df['nom_estab'].str.contains(intentData.find, case=False)) | (df['nombre_act'].str.contains(intentData.find, case=False))) & ((df['municipio'].str.contains(intentData.place, case=False)) | (df['localidad'].str.contains(intentData.place, case=False)))]
+    all_negs_index = df.index[((df['nom_estab'].str.contains(intentData.find, case=False)) | (df['nombre_act'].str.contains(intentData.find, case=False)) | (df['raz_social'].str.contains(intentData.find, case=False))) & ((df['municipio'].str.contains(intentData.place, case=False)) | (df['localidad'].str.contains(intentData.place, case=False)))]
+
+    all_negs = df_ori.loc[all_negs_index]
 
     points = all_negs.to_json(orient="records")
     points = json.loads(points)
