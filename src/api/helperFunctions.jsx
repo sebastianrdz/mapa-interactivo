@@ -18,7 +18,6 @@ export const dispatch = async (inputText, lat, lon) => {
 	}
 
 	try {
-		console.log(data)
 		const res = await axios.post(BASE_URL, data, config);
 		console.log(res)
 		return res;

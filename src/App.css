@@ -45,3 +45,21 @@
   border: 1px solid blue;
   height: 400px !important;
 }
+
+.title { 
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase !important; 
+}
+
+.divide { 
+  border: 1px solid black;
+  margin: 3px 0px;
+}
+
+ul { 
+  text-transform: capitalize; 
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
