@@ -50,9 +50,8 @@ const ChatBot = ({userPosition, setInfo}) => {
 
 	useEffect(() => {
 		switch (response?.data?.intent?.type) {
-			case "ERROR": // ERROR faltas tu
-				submitBotResponse("Lo lamento, no te entendi.");
-				submitBotResponse(`Intenta con: '1 carniceria ramos cerca de mi', 'oxxo en apodaca', 'tiendas de abarrotes en 900 m de mi' `);
+			case "ERROR": // ERROR
+				submitBotResponse("Lo lamento, no te entendi. Intenta con: '1 carniceria ramos cerca de mi', 'oxxo en apodaca', 'tiendas de abarrotes en 900 m de mi' ");
 				break;
 			case "SALUDO":
 				submitBotResponse("Hola!");

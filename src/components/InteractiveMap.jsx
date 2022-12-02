@@ -54,6 +54,7 @@ function InteractiveMap({ userPosition, info }) {
 						var localidad = data["localidad"]
 						var distancia = ((data["distancia"] == null) ? data["distancia"] : data["distancia"] + " km ");
 						var correo = data["correoelec"]
+						var telefono = ((data["telefono"] == null) ? data["telefono"] : "tel: " + data["telefono"])
 
 						return (
 							<Marker position={[lat, long]} icon={icons.violet.numbers[0]}>
@@ -64,6 +65,7 @@ function InteractiveMap({ userPosition, info }) {
 										<li>{ocupacion}</li>
 										<li>{plaza}</li>
 										<li>{correo}</li>
+										<li>{telefono}</li>
 									</ul>
 									<div className="divide"></div>
 									<ul>
