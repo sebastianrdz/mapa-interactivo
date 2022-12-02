@@ -15,7 +15,7 @@ const ChatBot = ({userPosition, setInfo}) => {
 			client: "bot",
 		},
 		{
-			message: "Hola, soy Neuran tu asistente vitual!",
+			message: "Hola, soy INEGI Bot, tu asistente vitual!",
 			client: "bot",
 		},
 	]);
@@ -33,8 +33,11 @@ const ChatBot = ({userPosition, setInfo}) => {
 		};
 		setHistory([tempData, ...history]);
 		inputRef.current.value = "";
-		//setResponse(dispatch(inputText, userPosition.latitude, userPosition.longitude));
-		setResponse(dispatch(inputText, userPosition.latitude, userPosition.longitude));
+		(
+			async () => {
+					setResponse(await dispatch(inputText, userPosition.latitude, userPosition.longitude))
+			}
+		)()
 	};
 
 	const submitBotResponse = (text) => {
@@ -46,9 +49,10 @@ const ChatBot = ({userPosition, setInfo}) => {
 	};
 
 	useEffect(() => {
-		switch (response?.intent?.type) {
-			case "ERROR": // ERROR
+		switch (response?.data?.intent?.type) {
+			case "ERROR": // ERROR faltas tu
 				submitBotResponse("Lo lamento, no te entendi.");
+				submitBotResponse(`Intenta con: '1 carniceria ramos cerca de mi', 'oxxo en apodaca', 'tiendas de abarrotes en 900 m de mi' `);
 				break;
 			case "SALUDO":
 				submitBotResponse("Hola!");
@@ -57,8 +61,9 @@ const ChatBot = ({userPosition, setInfo}) => {
 				submitBotResponse("Realizando busqueda por radio...");
 				setInfo(response);
 				break;
-			case "CANTIDAD": // Busqueda por cantidad
+			case "CANT": // Busqueda por cantidad
 				submitBotResponse("Realizando busqueda por cantidad...");
+				setInfo(response);
 				break;
 			case "LUGAR": // Busqueda por lugar
 				submitBotResponse("Realizando busqueda por lugar...");

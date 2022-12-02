@@ -13,3 +13,7 @@
 
 # Run the api
 - uvicorn app:app --reload
+
+# Install the following command
+- python3 -m spacy download fr_core_news_md
+- python3 -m spacy download es_core_news_md

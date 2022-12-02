@@ -1,9 +1,14 @@
-import styled from "@emotion/styled";
 import { MapContainer, TileLayer, Popup, Marker, Circle } from "react-leaflet";
-import "../App.css";
+import { renderToStaticMarkup } from "react-dom/server";
+import icons from "leaflet-color-number-markers";
+import styled from "@emotion/styled";
 import "leaflet/dist/leaflet.css";
-import L from "leaflet";
+import { divIcon } from "leaflet";
 import { useState } from "react";
+import L from "leaflet";
+import "../App.css";
+
+
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -15,6 +20,16 @@ L.Icon.Default.mergeOptions({
 
 function InteractiveMap({ userPosition, info }) {
 	const [position] = useState([userPosition.latitude, userPosition.longitude]);
+	console.log(info)
+	const iconMarkup = renderToStaticMarkup(
+		<div>
+			Test
+		</div>
+	);
+
+	const customMarkerIcon = divIcon({
+		html: iconMarkup
+	});
 
 	return (
 		<MapWrapper>
@@ -23,26 +38,28 @@ function InteractiveMap({ userPosition, info }) {
 					attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 				/>
-				{/* {position && (
+
+				{position && (
 					<Marker position={position}>
-						<Popup>Estas aqui!</Popup>
+						<Popup >Estas aqui!</Popup>
 					</Marker>
-				)} */}
-				{info?.intent && info?.intent?.type === "RADIO" && (
+				)}
+
+				{info?.data?.intent && info?.data?.intent?.type === "RADIO" && (
 					<Circle
 						center={position}
 						fillColor={"blue"}
-						radius={info.intent.info.radio * 1000}
+						radius={info.data.intent.info.radio * 1000}
 					/>
 				)}
 				{info?.data &&
-					info?.data?.map((data) => {
+					info?.data?.data?.map((data) => {
 						var lat = data["latitud"];
 						var long = data["longitud"];
 						var nom_estab = data["nom_estab"];
 						var edificio = data["edificio"];
 						return (
-							<Marker position={[lat, long]}>
+							<Marker position={[lat, long]} icon={icons.violet.numbers[0]}>
 								<Popup>
 									<ul>
 										<li>{nom_estab}</li>
@@ -60,6 +77,12 @@ function InteractiveMap({ userPosition, info }) {
 export default InteractiveMap;
 
 const MapWrapper = styled.div`
+	width: 100%;
+	height: 400px;
+	overflow: hidden;
+`;
+
+const StarPoint = styled.div`
 	width: 100%;
 	height: 400px;
 	overflow: hidden;
