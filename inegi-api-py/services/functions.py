@@ -77,7 +77,7 @@ def validCategory(text, cat, ents):
 
 			if find and place:
 				return get_by_place(IntentPlace(find,place))
-	return {"error": "No entities detected."}
+	return {"intent": { "type": "ERROR" }}
 
 
 def checkRequest(request):

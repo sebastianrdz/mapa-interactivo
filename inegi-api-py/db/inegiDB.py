@@ -2,6 +2,7 @@ import pandas as pd
 import spacy
 
 df = pd.read_csv('denue_NL2022.csv', encoding='latin-1')
+df_ori = pd.read_csv('denue_nv2022.csv', encoding='latin-1')
 
 # Importacion de los modelos
 es_nlp = spacy.load("es_core_news_md")
@@ -13,6 +14,6 @@ df = pd.read_csv('denue_nv2022.csv', encoding='latin-1')
 
 # Columnas a realizar un preprocesamiento/limpieza
 
-columnNames = ['nom_estab', 'nombre_act', 'municipio', 'localidad']
+columnNames = ['nom_estab', 'nombre_act', 'municipio', 'localidad', 'raz_social']
 df[columnNames] = df[columnNames].applymap(preprocess_text)
 '''
